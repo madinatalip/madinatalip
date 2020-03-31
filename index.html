@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Psychic Game(Basic)</title>
+
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+      integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+      crossorigin="anonymous"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <link rel="stylesheet" href="./css/srtyle.css" />
+  </head>
+  <body>
+    <header>
+      <div class="page-header">
+        <h1>The Psychic Game</h1>
+        <div id="musicControls" class="text-center">
+          <button class="btn btn-dark btn-xs theme-button">
+            <span class="fa fa-music"></span> Play Theme!
+          </button>
+          <button class="btn btn-dark btn-xs pause-button">
+            <span class="fa fa-pause"></span> Pause Song
+          </button>
+        </div>
+      </div>
+    </header>
+    <div class="container">
+      <h2>Believe in your Intuition</h2>
+      <div class="row">
+        <div class="col-md-4 ">
+          <img src="./image/images.jpg" class="bool" alt="..." />
+        </div>
+        <div class="col-md-4 ">
+          <ul id="space" class="list-group">
+            <li class="list-group-item" id="wins">Wins:</li>
+            <li class="list-group-item" id="lose">Losses:</li>
+            <li class="list-group-item" id="guessesLeft">Guesses Left:</li>
+            <li class="list-group-item" id="letter">Your Guesses so far:</li>
+          </ul>
+        </div>
+        <div class="col-md-4">
+          <img src="./image/images.jpg" class="bool" alt="..." />
+        </div>
+      </div>
+    </div>
+    <div class="footer">
+      &copy; Madina Talip
+    </div>
+    <script>
+      var computerChoices = [
+        "a",
+        "b",
+        "c",
+        "d",
+        "e",
+        "f",
+        "g",
+        "h",
+        "i",
+        "j",
+        "k",
+        "l",
+        "m",
+        "n",
+        "o",
+        "p",
+        "q",
+        "r",
+        "s",
+        "t",
+        "u",
+        "v",
+        "w",
+        "x",
+        "y",
+        "z"
+      ];
+
+      var wins = 0;
+      var losses = 0;
+      var guessesLeft = 9;
+      var letterUser = [];
+      var eachofLetters = null;
+
+      var computerGuess =
+        computerChoices[Math.floor(Math.random() * computerChoices.length)];
+      function countGuessesLeft() {
+        document.querySelector("#guessesLeft").innerHTML =
+          "Guesses Left: " + guessesLeft;
+      }
+      function farUserGuesses() {
+        document.querySelector("#letter").innerHTML =
+          "Your Guesses so far: " + letterUser.join(" ");
+      }
+      countGuessesLeft();
+      var restart = function() {
+        guessesLeft = 9;
+        letterUser = [];
+        var computerGuess =
+          computerChoices[Math.floor(Math.random() * computerChoices.length)];
+      };
+      document.onkeyup = function(event) {
+        guessesLeft--;
+        var userGuess = String.fromCharCode(event.keyCode).toLowerCase();
+        letterUser = [...letterUser, userGuess];
+        countGuessesLeft();
+        farUserGuesses();
+        if (userGuess === computerGuess) {
+          wins++;
+          document.querySelector("#wins").innerHTML = "Wins: " + wins;
+          restart();
+        } else if (guessesLeft === 0) {
+          losses++;
+          document.querySelector("#lose").innerHTML = "Loses: " + losses;
+          restart();
+        }
+      };
+      var audioElement = document.createElement("audio");
+      audioElement.setAttribute("./muz/dili.mp3");
+
+      // Theme Button
+      $(".theme-button").on("click", function() {
+        audioElement.play();
+      });
+      $(".pause-button").on("click", function() {
+        audioElement.pause();
+      });
+    </script>
+  </body>
+</html>

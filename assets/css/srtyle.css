@@ -1,0 +1,18 @@
+.container{
+    background: black;
+}
+body{
+    color: red;
+    background-color: black;
+}
+
+h2{
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    color: brown;
+}
+.list-group-item{
+    background-color: black;
+    color: red;
+}
